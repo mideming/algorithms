@@ -37,6 +37,5 @@ public class XORDemo {
             count ++;
         }
         System.out.println(count);
-
     }
 }
