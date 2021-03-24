@@ -2,6 +2,10 @@ package com.study.algorithms.day02;
 
 import java.util.Stack;
 
+/**
+ * 两个队列实现栈：存的时候，队列1存，取的时候，队列1把数据都导给队列2，只留最后一个，返回。下次交替执行
+ * 两个栈实现队列：一个stack1负责存，一个stack2负责取，存的时候判断stack2是否为空，为空则反向pop给stack2。
+ */
 public class TwoStackToQueue {
     private Stack<Integer> pushStack;
     private Stack<Integer> popStack;
