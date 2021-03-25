@@ -2,16 +2,28 @@ package com.study.algorithms.day03;
 
 /**
  * 归并排序
+ * T(N) = 2*T(N/2)+O(N^1)
+ * 根据master可知时间复杂度为：O(N*logN)
+ * merge过程需要辅助数组，所以空间复杂度为O(N)
+ * 贵并排序的实质是把比较行为变成了有序信息并传递，比O(N^2)的排序快
  */
 public class MergeSort {
     public static void main(String[] args) {
         int[] arr = {4, 2, 6, 1, 2, 3, 6, 8, 0};
+        // 归并排序
         process(arr, 0, arr.length - 1);
+        for (int i = 0; i < arr.length; i++) {
+            System.out.println(i);
+        }
+        System.out.println("==================");
+        // 非归并排序（任何递归都可以改成非递归）
+        process2(arr);
         for (int i = 0; i < arr.length; i++) {
             System.out.println(i);
         }
     }
 
+    // 使用归并排序
     public static void process(int[] arr, int L, int R) {
         if (arr == null || L == R) {
             return;
@@ -20,6 +32,33 @@ public class MergeSort {
         process(arr, L, mid);
         process(arr, mid + 1, R);
         mergeSort(arr, L, mid, R);
+    }
+
+    // 不使用归并排序
+    public static void process2(int[] arr) {
+        if (arr == null && arr.length < 2) {
+            return;
+        }
+        int mergeSize = 1;
+        int N = arr.length;
+        while (mergeSize < N) {
+            int L = 0;
+            while (L < N) {
+                // L...M(mergeSize)左组
+                int M = L + mergeSize - 1;
+                if (M >= N) {
+                    break;
+                }
+                // M+1...R(mergeSize)右组
+                int R = Math.min(M + mergeSize, N - 1);
+                mergeSort(arr, L, M, R);
+                L = R + 1;
+            }
+            if (mergeSize > (N >> 2)) {
+                break;
+            }
+            mergeSize <<= 2;
+        }
     }
 
     private static void mergeSort(int[] arr, int L, int mid, int R) {
