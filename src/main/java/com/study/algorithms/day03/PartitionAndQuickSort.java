@@ -3,10 +3,24 @@ package com.study.algorithms.day03;
 public class PartitionAndQuickSort {
 
     public static void main(String[] args) {
-        int[] arr = {1,6,7,2,3,5,0,8,7,0,6,3,9,3,6,7,9};
-        quickSort2(arr);
-        for (int i = 0; i < arr.length; i++) {
-            System.out.println(i);
+        int[] arr1 = {1,6,7,2,3,5,0,8,7,0,6,3,9,3,6,7,9};
+        quickSort1(arr1);
+        for (int i = 0; i < arr1.length; i++) {
+            System.out.println(arr1[i]);
+        }
+
+        System.out.println("===================");
+        int[] arr2 = {1,6,7,2,3,5,0,8,7,0,6,3,9,3,6,7,9};
+        quickSort2(arr2);
+        for (int i = 0; i < arr2.length; i++) {
+            System.out.println(arr2[i]);
+        }
+
+        System.out.println("===================");
+        int[] arr3 = {1,6,7,2,3,5,0,8,7,0,6,3,9,3,6,7,9};
+        quickSort3(arr3);
+        for (int i = 0; i < arr3.length; i++) {
+            System.out.println(arr3[i]);
         }
     }
     public static void quickSort1 (int[] arr) {
@@ -27,14 +41,47 @@ public class PartitionAndQuickSort {
     }
 
     public static int partition(int[] arr, int L, int R) {
-        return -1;
+        if (L > R) {
+            return -1;
+        }
+        if (L == R) {
+            return L;
+        }
+        int less = L - 1;
+        int index = L;
+        while (index < R) {
+            if (arr[index] <= arr[R]) {
+                swap(arr, index, ++less);
+            }
+            index++;
+        }
+        swap(arr, ++less, R);
+        return less;
     }
 
     public static void quickSort2 (int[] arr) {
-        if (arr == null && arr.length < 2) {
+        if (arr == null || arr.length < 2) {
             return;
         }
         process2(arr, 0, arr.length - 1);
+    }
+
+    public static void quickSort3 (int[] arr) {
+        if (arr == null || arr.length < 2) {
+            return;
+        }
+        process3(arr, 0, arr.length - 1);
+    }
+    public static void process3(int[] arr, int L, int R) {
+        if (L >= R) {
+            return;
+        }
+        swap(arr, L + (int) (Math.random() * (R - L + 1)), R);
+        // <=arr[R]  arr[R]    >=arr[R]
+        // L...M-1     M       M+1...R
+        int[] equalArea = netherlandsFlag(arr, L, R);
+        process3(arr, L, equalArea[0] - 1);
+        process3(arr, equalArea[1] + 1, R);
     }
     public static void process2(int[] arr, int L, int R) {
         if (L >= R) {
