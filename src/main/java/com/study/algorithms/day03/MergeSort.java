@@ -12,7 +12,6 @@ package com.study.algorithms.day03;
 public class MergeSort {
     public static void main(String[] args) {
         int[] arr = {4, 2, 6, 1, 2, 3, 6, 8, 0};
-        // 归并排序
         process(arr, 0, arr.length - 1);
         for (int i = 0; i < arr.length; i++) {
             System.out.println(i);
